@@ -32,5 +32,13 @@ jobs:
       - name: Build docker image
         run: docker build -t gu1guizo/nlw-journey.api:${{ steps.generate_sha.outputs.sha }} .
 
+      #push image
+      #troca tag para a latest
+      - name: Push docker image
+        run: |
+          docker push gu1guizo/nlw-journey.api:${{ steps.generate_sha.outputs.sha }}
+          docker tag gu1guizo/nlw-journey.api:${{ steps.generate_sha.outputs.sha }} gu1guizo/nlw-journey.api:latest
+          docker push gu1guizo/nlw-journey.api:latest
+
 
 
