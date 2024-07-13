@@ -8,8 +8,18 @@ jobs:
     name: 'Build and push'
     runs-on: ubuntu-latest
     steps:
+      #Setup do go na máquina do ubuntu
+      #Matchworks strategy -> testa performance da aplicação em várias versões
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup go
+        uses: actions/setup-go@v5
+        with:
+          go_version: '1.22.x'
+
+      - name: Run tests
+        run: go test
       #pipe no run indica quebra de linha para rodar vários comandos
       #GITHUB_SHA contém a hash do commit
       #head -c7 returna os primeiros 7 caracteres
