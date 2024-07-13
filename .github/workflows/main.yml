@@ -1,1 +1,17 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-and-push:
+    name: 'Build and push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build docker image
+        run: docker build -t gu1guizo/nlw-journey.api:latest .
+
 
