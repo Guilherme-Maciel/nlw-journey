@@ -10,8 +10,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      #pipe no run indica quebra de linha para rodar vários comandos
+      #GITHUB_SHA contém a hash do commit
+      #head -c7 returna os primeiros 7 caracteres
+      #GITHUB_OUTPUT armazena returnos de steps
+      - name: Generate SHA
+        id: generate_sha
+        run: |
+          SHA=$(echo $GITHUB_SHA | head -c7)
+          echo "sha=$SHA" >> $GITHUB_OUTPUT
 
       - name: Build docker image
-        run: docker build -t gu1guizo/nlw-journey.api:latest .
+        run: docker build -t gu1guizo/nlw-journey.api:${{ steps.generate_sha.outputs.sha }} .
 
 
